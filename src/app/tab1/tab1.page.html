@@ -1,17 +1,55 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Weekly Meals Generator
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="home">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Tab 1</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-card>
+    <h1 class="title">Meal Generator</h1>
+    <h5 class="h5">Meal Ideas for the next work week will be generated below:</h5>
+    <hr />
+    <div>
+      <ion-row style="justify-content: center;">
+        <ion-col *ngIf="meals[0]" [(ngModel)] = "meals">
+          <ion-row>
+            <h2 class="h2">Monday: {{meals[0].name}}</h2>
+          </ion-row>
+          <ion-row>
+            <h2 class="h2" *ngIf="meals[1]">Tuesday: {{meals[1].name}}</h2>
+          </ion-row>
+          <ion-row>
+            <h2 class="h2">Wednesday: {{meals[2].name}}</h2>
+          </ion-row>
+          <ion-row>
+            <h2 class="h2">Thursday: {{meals[3].name}}</h2>
+          </ion-row>
+          <ion-row>
+            <h2 class="h2">Friday: {{meals[4].name}}</h2>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </div>
+    <br>
+    <ion-button class="export" (click)="generateMeals()">Generate Weekly Meals</ion-button>
+  </ion-card>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+
+  <ion-card>
+    <h1 class="title">Ingredients Needed</h1>
+    <h5 class="h5">Ingredients needed for this week's meals are listed below:</h5>
+    <div *ngFor="let ingredient of ingredients;let indexOfelement=index;" [(ngModel)]="ingredients" ngDefaultControl>
+
+      <ion-row><div>{{ingredient.name}}: &nbsp;</div><div *ngFor="let item of ingredientsDisplay[indexOfelement]">{{item.quantity}} {{item.unit}}, &nbsp;</div></ion-row>
+    </div>
+    <hr />
+
+  </ion-card>
 </ion-content>

@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Recipes App - Sign In</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+      <h1>Recipes App</h1>
+    <ion-item style="width: 48em">
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input placeholder="Email" [(ngModel)]="email"></ion-input>
+    </ion-item>
+    <br>
+
+    <ion-item>
+      <ion-label position="stacked">Password</ion-label>
+      <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+
+    <ion-button class="login" (click)="signIn()" expand='block'>Sign In</ion-button>
+    <br>
+</ion-content>

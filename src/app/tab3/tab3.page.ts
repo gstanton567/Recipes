@@ -7,6 +7,23 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
-  constructor() {}
+  myClassVariable: number = 1
+  constructor() {
+
+  }
+
+  ngOnInit() {
+    console.log(this.myClassVariable)
+    this.myClassVariable = 2
+    console.log(this.myClassVariable)
+    this.changeClassVariable()
+  }
+
+  changeClassVariable() {
+    var localVariable = this.myClassVariable + 1
+    console.log(localVariable)
+    console.log(this.myClassVariable)
+  }
+
 
 }

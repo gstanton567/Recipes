@@ -1,17 +1,48 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title>Recipe Editor</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+<ion-list>
+  <ion-list-header> Recipes </ion-list-header>
+  <br>
+  <div> 
+      <ion-row class="ion-align-items-stretch">
+        <ion-col size="5" offset="0.1">
+          <div> Name </div>
+        </ion-col>
+        <ion-col size="1" offset="2">
+          <div> Actions </div>
+        </ion-col>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+      </ion-row>
+
+    </div>
+    <br>
+    <hr style="height:1px;border-top:1px solid #2e2e2e; margin-top: 0;" />
+
+    <div *ngFor="let meal of meals; let i = index">
+      <ion-row class="ion-align-items-stretch">
+        <ion-col size="5" offset="0.1" class="ion-nowrap">
+          <div> {{meal.name}} </div>
+        </ion-col>
+        <ion-col size="1" offset="2">
+          <ion-button (click)="openActionsModal(i)" padding-top="">
+            <ion-icon slot="icon-only" name="menu" color="white" padding-top=""></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <hr style="height:1px;border-top:1px solid #2e2e2e; margin-top: 0;" />
+    </div>
+  </ion-list>
+
 </ion-content>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click) ="openCreatorModal()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+

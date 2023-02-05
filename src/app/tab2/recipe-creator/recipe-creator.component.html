@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Recipe
+    </ion-title>
+    <ion-button slot="secondary" (click)="showWarning()">
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-row>
+    <h1>
+      Name: </h1>
+    <ion-input value="" [(ngModel)]="name" style="margin-top: 14px; background-color: rgb(42, 40, 40);"
+      placeholder="Recipe Name"></ion-input>
+  </ion-row>
+
+
+  <h1>
+    Instructions:
+  </h1>
+  <ion-item>
+    <ion-textarea placeholder="Instructions" [autoGrow]="true" value="" [(ngModel)]="instructions">
+    </ion-textarea>
+  </ion-item>
+  <h1>
+    Ingredients:
+  </h1>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addIngredient()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-item *ngFor="let ingredient of ingredients" button="false">
+    <ion-row> 
+      <ion-label>Name: </ion-label> <ion-input [(ngModel)]="ingredient.name" value ="{{ingredient.name}}"> </ion-input>
+      <ion-label>quantity: </ion-label><ion-input [(ngModel)]="ingredient.quantity.quantities[0]" value="{{ingredient.quantity.quantities[0]}}"> </ion-input>
+      <ion-label>unit: </ion-label><ion-input [(ngModel)]="ingredient.quantity.units[0]"value="{{ingredient.quantity.units[0]}}"> </ion-input>
+
+    </ion-row>
+    <br>
+  </ion-item>
+
+
+
+</ion-content>
+<ion-button (click)="submitUserEdits()">Save Changes</ion-button>

@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Recipe
+    </ion-title>
+    <ion-button slot="secondary" (click)="showWarning()">
+      <ion-icon name="close" ></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <h1>
+     Name: 
+     <ion-input value="{{meal.name}}" [(ngModel)]="meal.name"></ion-input>
+    </h1>
+    <h1>
+      Instructions: 
+     </h1>
+     <ion-item>
+      <ion-textarea placeholder="Instructions" [autoGrow]="true"
+        value="{{meal.instructions}}" [(ngModel)]="meal.instructions">
+      </ion-textarea>
+    </ion-item>
+     <h1>
+      Ingredients: 
+     </h1>
+     <div *ngFor="let ingredient of ingredients; let i = index;">
+      <app-ingredient-display [(name)]="ingredient.name" [(quantity)]="setQuantity[i]" [(unit)]="setUnit[i]"></app-ingredient-display>
+    </div>
+    
+    
+    
+      
+
+</ion-content>
+<ion-button (click)="submitUserEdits()">Save Changes</ion-button>

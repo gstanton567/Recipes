@@ -1,0 +1,56 @@
+.home{
+    // position: relative;
+    // top:50px;
+    align-self: center;
+    max-width: 60em;
+
+    ion-datetime-button {
+        padding-top: 18px;
+    }
+    .title {
+        padding-left: 10px;
+        padding-bottom: 2px;
+        margin-bottom: 2px;
+        color:white;
+    }
+    .h5 {
+        padding-left: 10px;
+        padding-top: 0;
+        margin-top: 0;
+        color:lightgray;
+    }
+    .h2 {
+        color:white;
+        margin-right: 5px;
+    }
+    .divider {
+        width: 30px;
+    }
+    .export {
+        width: 100%;
+    }
+    hr {
+        height:1px;
+        border-top: 1px solid #2e2e2e; 
+        margin-top: 0;
+    }
+
+    ion-input {
+        background-color: #2e2e2e;
+        color:white;
+    }
+    .scroll {
+        height: 100%;
+    }
+}
+.container {
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    height: 100%;
+}
+.signOut {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

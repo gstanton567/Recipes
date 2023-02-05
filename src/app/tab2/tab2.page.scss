@@ -1,0 +1,28 @@
+ion-list-header {
+    font-size: 24px;
+}
+ion-button {
+    --padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+ion-icon {
+    --padding-top: 0 !important;
+    margin-top: 0 !important;
+
+}
+
+.scroll {
+    height: 100%;
+}
+
+.container {
+margin: auto;
+position: absolute;
+top: 0; left: 0; bottom: 0; right: 0;
+height: 100%;
+}
+.signOut {
+position: absolute;
+bottom: 0;
+width: 100%;
+}
