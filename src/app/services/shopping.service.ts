@@ -4,19 +4,19 @@ import { Meal } from "src/app/classes/meal";
 
 @Injectable()
 export class ShoppingService {
-    ingredients: Ingredient[] = []
+    static ingredients: Ingredient[] = []
 
-    total(ingredient: Ingredient) {
+    total(existingIngredient: Ingredient) {
         var found = 0;
-        for (var item of this.ingredients) {
-            if (item.name == ingredient.name)
+        for (var newIngredient of ShoppingService.ingredients) {
+            if (newIngredient.name == existingIngredient.name)
             {
-                this.updateQuantity(ingredient, item) 
+                this.updateQuantity(existingIngredient, newIngredient) 
                 found++
             }
         }
         if(found == 0) {
-            this.ingredients.push(ingredient)
+          ShoppingService.ingredients.push(newIngredient)
         }
     }
 
@@ -43,7 +43,7 @@ export class ShoppingService {
     
 
     randomize(meals: Meal[]) {
-        this.ingredients = []
+      ShoppingService.ingredients = []
         var weeksMeals = [];
         var tempArray = [];
         var totalNum = 0;
