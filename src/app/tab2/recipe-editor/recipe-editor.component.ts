@@ -4,6 +4,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { Meal } from 'src/app/classes/meal';
 import { Ingredient } from 'src/app/classes/ingredient';
+import { Quantity } from 'src/app/classes/quantity';
 
 @Component({
   selector: 'app-recipe-editor',
@@ -85,6 +86,15 @@ export class RecipeEditorComponent implements OnInit {
   }
   
 
-  
+  addIngredient() {
+    this.ingredients.push(new Ingredient("", new Quantity([], [])))
+  }
+
+  deleteIngredient(name: string) {
+    console.log(this.ingredients)
+    var index = this.ingredients.findIndex(item => item.name == name)
+    this.ingredients.splice(index, 1)
+    console.log(this.ingredients)
+  }
 
 }

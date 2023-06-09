@@ -28,7 +28,7 @@ export class Tab2Page {
 
   async openActionsModal(i: number) {
     const payload = {
-     meal: this.meals[i]
+     meal: this.result[i]
     }
       const modal = await this.modalController.create({
         component: RecipeEditorComponent,

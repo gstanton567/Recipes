@@ -26,8 +26,17 @@
       Ingredients: 
      </h1>
      <div *ngFor="let ingredient of ingredients; let i = index;">
-      <app-ingredient-display [(name)]="ingredient.name" [(quantity)]="setQuantity[i]" [(unit)]="setUnit[i]"></app-ingredient-display>
+      <ion-row>
+        <app-ingredient-display [(name)]="ingredient.name" [(quantity)]="setQuantity[i]" [(unit)]="setUnit[i]"></app-ingredient-display>
+        <ion-button (click)="deleteIngredient(ingredient.name)">
+          <ion-icon name="trash" ></ion-icon>
+        </ion-button>
+      </ion-row>
     </div>
+
+    <ion-row class="ion-justify-content-center" (click)="addIngredient()">
+      <ion-button color="tertiary">Add Ingredient</ion-button>
+    </ion-row>
     
     
     

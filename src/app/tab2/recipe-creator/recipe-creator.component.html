@@ -38,7 +38,9 @@
       <ion-label>Name: </ion-label> <ion-input [(ngModel)]="ingredient.name" value ="{{ingredient.name}}"> </ion-input>
       <ion-label>quantity: </ion-label><ion-input [(ngModel)]="ingredient.quantity.quantities[0]" value="{{ingredient.quantity.quantities[0]}}"> </ion-input>
       <ion-label>unit: </ion-label><ion-input [(ngModel)]="ingredient.quantity.units[0]"value="{{ingredient.quantity.units[0]}}"> </ion-input>
-
+      <ion-button (click)="deleteIngredient(ingredient.name)">
+        <ion-icon name="trash" ></ion-icon>
+      </ion-button>
     </ion-row>
     <br>
   </ion-item>

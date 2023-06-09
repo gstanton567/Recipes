@@ -69,4 +69,10 @@ export class RecipeCreatorComponent implements OnInit {
     this.ingredients.push(new Ingredient("", new Quantity([], [])))
   }
 
+  deleteIngredient(name: string) {
+    console.log(this.ingredients)
+    var index = this.ingredients.findIndex(item => item.name == name)
+    this.ingredients.splice(index, 1)
+    console.log(this.ingredients)
+  }
 }
