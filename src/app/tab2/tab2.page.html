@@ -8,6 +8,8 @@
 <ion-list>
   <ion-list-header> Recipes </ion-list-header>
   <br>
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)"></ion-searchbar>
+
   <div> 
       <ion-row class="ion-align-items-stretch">
         <ion-col size="5" offset="0.1">
@@ -23,7 +25,7 @@
     <br>
     <hr style="height:1px;border-top:1px solid #2e2e2e; margin-top: 0;" />
 
-    <div *ngFor="let meal of meals; let i = index">
+    <div *ngFor="let meal of result; let i = index">
       <ion-row class="ion-align-items-stretch">
         <ion-col size="5" offset="0.1" class="ion-nowrap">
           <div> {{meal.name}} </div>

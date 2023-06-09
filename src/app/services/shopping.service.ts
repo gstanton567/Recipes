@@ -6,34 +6,34 @@ import { Meal } from "src/app/classes/meal";
 export class ShoppingService {
     static ingredients: Ingredient[] = []
 
-    total(existingIngredient: Ingredient) {
+    total(newListIngredient: Ingredient) {
         var found = 0;
-        for (var newIngredient of ShoppingService.ingredients) {
-            if (newIngredient.name == existingIngredient.name)
+        for (var existingIngredient of ShoppingService.ingredients) {
+            if (newListIngredient.name == existingIngredient.name)
             {
-                this.updateQuantity(existingIngredient, newIngredient) 
+                this.updateQuantity(newListIngredient, existingIngredient) 
                 found++
             }
         }
         if(found == 0) {
-          ShoppingService.ingredients.push(newIngredient)
+          ShoppingService.ingredients.push(newListIngredient)
         }
     }
 
-    updateQuantity(ingredient: Ingredient, item: Ingredient) {
-        for (let i = 0; i < ingredient.quantity.units.length; i++) {
+    updateQuantity(newListIngredient: Ingredient, existingIngredient: Ingredient) {
+        for (let i = 0; i < newListIngredient.quantity.units.length; i++) {
           let found = false;
-          for (let j = 0; j < item.quantity.units.length; j++) {
-            if (ingredient.quantity.units[i] === item.quantity.units[j]) {
+          for (let j = 0; j < existingIngredient.quantity.units.length; j++) {
+            if (newListIngredient.quantity.units[i] === existingIngredient.quantity.units[j]) {
               // Convert the quantity values to numbers before adding them
-              item.quantity.quantities[j] = Number(item.quantity.quantities[j]) + Number(ingredient.quantity.quantities[i]);
+              existingIngredient.quantity.quantities[j] = Number(existingIngredient.quantity.quantities[j]) + Number(existingIngredient.quantity.quantities[i]);
               found = true;
               break;
             }
           }
           if (!found) {
-            item.quantity.units.push(ingredient.quantity.units[i]);
-            item.quantity.quantities.push(ingredient.quantity.quantities[i]);
+            existingIngredient.quantity.units.push(existingIngredient.quantity.units[i]);
+            existingIngredient.quantity.quantities.push(existingIngredient.quantity.quantities[i]);
           }
         }
       }
@@ -60,7 +60,6 @@ export class ShoppingService {
 
                 totalNum--;
             }
-            console.log(weeksMeals)
             return weeksMeals
     }
 }

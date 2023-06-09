@@ -12,11 +12,16 @@ import { RecipeEditorComponent } from './recipe-editor/recipe-editor.component';
 })
 export class Tab2Page {
   meals: Meal[] = []
+  result = []
+
+  constructor(private firebaseService: FirebaseService, private cd: ChangeDetectorRef, private modalController: ModalController) {
+
   
-  constructor(private firebaseService: FirebaseService, private cd: ChangeDetectorRef, private modalController: ModalController) {}
+  }
   ngOnInit() {
     this.firebaseService.getMeals().subscribe((meals: Meal[]) => {
       this.meals = meals
+      this.result = this.meals
       this.cd.detectChanges()
     })
   }
@@ -46,6 +51,11 @@ export class Tab2Page {
       });
       return await modal.present();
     
+  }
+
+  handleInput(event) {
+    const query = event.target.value.toLowerCase();
+    this.result = this.meals.filter((d) => d.name.toLowerCase().indexOf(query) > -1);
   }
   
 }
