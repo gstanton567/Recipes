@@ -21,20 +21,22 @@ export class ShoppingService {
     }
 
     updateQuantity(newListIngredient: Ingredient, existingIngredient: Ingredient) {
-        for (let i = 0; i < newListIngredient.quantity.units.length; i++) {
-          let found = false;
-          for (let j = 0; j < existingIngredient.quantity.units.length; j++) {
+        for (var i = 0; i < newListIngredient.quantity.units.length; i++) {
+          var found = false;
+          for (var j = 0; j < existingIngredient.quantity.units.length; j++) {
             if (newListIngredient.quantity.units[i] === existingIngredient.quantity.units[j]) {
               // Convert the quantity values to numbers before adding them
               existingIngredient.quantity.quantities[j] = Number(existingIngredient.quantity.quantities[j]) + Number(existingIngredient.quantity.quantities[i]);
               found = true;
               break;
             }
+            
           }
           if (!found) {
-            existingIngredient.quantity.units.push(existingIngredient.quantity.units[i]);
-            existingIngredient.quantity.quantities.push(existingIngredient.quantity.quantities[i]);
+            existingIngredient.quantity.units.push(newListIngredient.quantity.units[i]);
+            existingIngredient.quantity.quantities.push(newListIngredient.quantity.quantities[i]);
           }
+          
         }
       }
 

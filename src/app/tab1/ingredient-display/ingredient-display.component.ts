@@ -25,4 +25,6 @@ export class IngredientDisplayComponent implements OnInit {
     this.unitChange.emit(this.unit);
     
   }
+
+  
 }
