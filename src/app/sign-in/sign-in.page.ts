@@ -9,6 +9,7 @@ import { AuthService } from "src/app/services/auth.service";
 export class SignInPage implements OnInit {
   email: string = ""
   abc: string = ""
+  
   public password: string = ""
   constructor(
     public authService: AuthService, 

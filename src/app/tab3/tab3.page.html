@@ -1,17 +1,57 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Nina Meal Entry
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" >
+  <ion-datetime presentation="date" showDefaultButtons="true" doneText ="Select"(ionChange)="getUserEntries($event)" [highlightedDates]="daysWithEntries"></ion-datetime>
+  <div *ngFor="let entry of tempEntries; let i = index">
+ 
+    <ion-card>
+      <h1>
+        Mealtime:
+        <ion-input [(ngModel)]="entry.mealtime"></ion-input>
+      </h1>
+      <h1>
+        Food Items:
+      </h1>
+      <ion-item>
+        <ion-input type="text" value="{{entry.foodItems}}" [(ngModel)]="entry.foodItems"></ion-input>
+      </ion-item>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+      <h1>
+        Notes:
+      </h1>
+      <ion-item>
+        <ion-textarea placeholder="Notes" [autoGrow]="true" [(ngModel)]="entry.notes">
+        </ion-textarea>
+      </ion-item>
+      <ion-row>
+        <ion-button (click)="deleteEntry(i)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-row>
+    </ion-card>
+  </div>
+
+  
+
 </ion-content>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="chevron-up-circle"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-fab-button>
+      <ion-icon name="save" (click)="submitUserEdits()"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button>
+      <ion-icon name="add" (click)="addEntry()"></ion-icon>
+    </ion-fab-button>
+
+  </ion-fab-list>
+</ion-fab>
