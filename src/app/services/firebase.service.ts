@@ -24,13 +24,16 @@ export class FirebaseService {
 
   }
 
-  async createRecipe(name: string, ingredients: Ingredient[], instructions: string) {
-    var tempArr: Ingredient[] = []
+  async createRecipe(name: string, ingredients: Ingredient[] | string, instructions: string) {
+    let tempArr: Ingredient[] | string = []
+    if(ingredients instanceof Array) {
+    for (let ingredient of ingredients) {
+        tempArr.push({ name: ingredient.name, quantity: Object.assign({}, new Quantity(ingredient.quantity.quantities, ingredient.quantity.units)) })
 
-    for (var ingredient of ingredients) {
-      tempArr.push({ name: ingredient.name, quantity: Object.assign({}, new Quantity(ingredient.quantity.quantities, ingredient.quantity.units)) })
     }
-    console.log()
+  } else {
+    tempArr = ingredients;
+  }
     await setDoc(doc(this.firestore, "newMeals", name), {
       name: name,
       ingredients: tempArr,

@@ -4,43 +4,52 @@
       Recipe
     </ion-title>
     <ion-button slot="secondary" (click)="showWarning()">
-      <ion-icon name="close" ></ion-icon>
+      <ion-icon name="close"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <h1>
-     Name: 
-     <ion-input value="{{meal.name}}" [(ngModel)]="meal.name"></ion-input>
-    </h1>
-    <h1>
-      Instructions: 
-     </h1>
-     <ion-item>
-      <ion-textarea placeholder="Instructions" [autoGrow]="true"
-        value="{{meal.instructions}}" [(ngModel)]="meal.instructions">
-      </ion-textarea>
-    </ion-item>
-     <h1>
-      Ingredients: 
-     </h1>
-     <div *ngFor="let ingredient of ingredients; let i = index;">
+  <h1>
+    Name:
+    <ion-input value="{{meal.name}}" [(ngModel)]="meal.name"></ion-input>
+  </h1>
+  <h1>
+    Instructions:
+  </h1>
+  <ion-item>
+    <ion-textarea placeholder="Instructions" [autoGrow]="true" value="{{meal.instructions}}"
+      [(ngModel)]="meal.instructions">
+    </ion-textarea>
+  </ion-item>
+  <h1>
+    Ingredients:
+  </h1>
+  <div *ngIf="individual">
+    <div *ngFor="let ingredient of individualIngredients; let i = index;">
       <ion-row>
-        <app-ingredient-display [(name)]="ingredient.name" [(quantity)]="setQuantity[i]" [(unit)]="setUnit[i]"></app-ingredient-display>
+        <app-ingredient-display [(name)]="ingredient.name" [(quantity)]="setQuantity[i]"
+          [(unit)]="setUnit[i]"></app-ingredient-display>
         <ion-button (click)="deleteIngredient(ingredient.name)">
-          <ion-icon name="trash" ></ion-icon>
+          <ion-icon name="trash"></ion-icon>
         </ion-button>
       </ion-row>
     </div>
-
     <ion-row class="ion-justify-content-center" (click)="addIngredient()">
       <ion-button color="tertiary">Add Ingredient</ion-button>
     </ion-row>
-    
-    
-    
-      
+  </div>
+  <div *ngIf="!individual">
+    <ion-textarea [(ngModel)]="groupIngredients">
+
+    </ion-textarea>
+  </div>
+
+  
+
+
+
+
 
 </ion-content>
 <ion-button (click)="submitUserEdits()">Save Changes</ion-button>

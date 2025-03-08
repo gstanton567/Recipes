@@ -26,7 +26,9 @@ export class Tab1Page {
     //create a list of all the ingredients for the 5 weekly meals
     for(var meal of this.meals) {
       for(var ingredient of meal.ingredients) {
-        this.shoppingService.total(ingredient);
+        if(ingredient instanceof Ingredient) {
+          this.shoppingService.total(ingredient);
+        }
       }
     }
 

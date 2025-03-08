@@ -15,22 +15,29 @@ export class RecipeEditorComponent implements OnInit {
 
   @Input() payload: any;
   meal: Meal; 
-  ingredients: Ingredient[]
+  individualIngredients: Ingredient[]
+  groupIngredients: string
   setQuantity: number[]  = []
   setUnit: string[] = []
+  individual: boolean
 
   constructor(public alertController: AlertController,
     private modalController: ModalController, private alertService: AlertService, private firebaseService: FirebaseService) { }
 
   ngOnInit() {
     this.meal = this.payload.meal as Meal
-    this.ingredients = this.payload.meal.ingredients
-    for(var ingredient of this.ingredients)
-    {
-      this.setQuantity.push(ingredient.quantity.quantities[0])
-      this.setUnit.push(ingredient.quantity.units[0])
+    if(this.payload.meal.ingredients instanceof Array) {
+      this.individualIngredients = this.payload.meal.ingredients
+      for(var ingredient of this.individualIngredients)
+      {
+        this.setQuantity.push(ingredient.quantity.quantities[0])
+        this.setUnit.push(ingredient.quantity.units[0])
+      }
+      this.individual = true;
+    } else {
+      this.groupIngredients = this.payload.meal.ingredients
+      this.individual = false
     }
-    console.log(this.ingredients)
   }
 
   async showWarning() {
@@ -57,17 +64,23 @@ export class RecipeEditorComponent implements OnInit {
     }
     else {
       try {
-        console.log(this.ingredients)
-        for(var i = 0; i < this.ingredients.length; i++) {
-          this.ingredients[i].quantity.quantities[0] = this.setQuantity[i]
-          console.log(this.setQuantity[i])
-          this.ingredients[i].quantity.units[0] = this.setUnit[i]
-          console.log(this.setUnit[i])
-
+        if(this.individual) {
+          for(var i = 0; i < this.individualIngredients.length; i++) {
+            this.individualIngredients[i].quantity.quantities[0] = this.setQuantity[i]
+            console.log(this.setQuantity[i])
+            this.individualIngredients[i].quantity.units[0] = this.setUnit[i]
+            console.log(this.setUnit[i])
+  
+          }
+          this.firebaseService.createRecipe(this.meal.name, this.individualIngredients, this.meal.instructions).then(() => {
+            this.alertService.showAlert('Success!', 'Changes to this recipe have been successfully submitted')
+          })
+        } else {
+          this.firebaseService.createRecipe(this.meal.name, this.groupIngredients, this.meal.instructions).then(() => {
+            this.alertService.showAlert('Success!', 'Changes to this recipe have been successfully submitted')
+          })
         }
-        this.firebaseService.createRecipe(this.meal.name, this.ingredients, this.meal.instructions).then(() => {
-          this.alertService.showAlert('Success!', 'Changes to this recipe have been successfully submitted')
-        })
+        
       } catch (err) {
         console.log(err)
         this.alertService.showDBError(err)
@@ -87,14 +100,12 @@ export class RecipeEditorComponent implements OnInit {
   
 
   addIngredient() {
-    this.ingredients.push(new Ingredient("", new Quantity([], [])))
+    this.individualIngredients.push(new Ingredient("", new Quantity([], [])))
   }
 
   deleteIngredient(name: string) {
-    console.log(this.ingredients)
-    var index = this.ingredients.findIndex(item => item.name == name)
-    this.ingredients.splice(index, 1)
-    console.log(this.ingredients)
+    var index = this.individualIngredients.findIndex(item => item.name == name)
+    this.individualIngredients.splice(index, 1)
   }
 
 }

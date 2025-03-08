@@ -42,7 +42,7 @@ export class AuthService {
 
                 this.afAuth.authState.subscribe((user) => {
                     if (user) {
-                        this.router.navigate(['tabs/tab1']);
+                        this.router.navigate(['tabs/Recipes']);
                     }
                 });
             })

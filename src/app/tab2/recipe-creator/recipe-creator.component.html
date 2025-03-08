@@ -28,22 +28,46 @@
   <h1>
     Ingredients:
   </h1>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="addIngredient()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  <ion-item *ngFor="let ingredient of ingredients" button="false">
-    <ion-row> 
-      <ion-label>Name: </ion-label> <ion-input [(ngModel)]="ingredient.name" value ="{{ingredient.name}}"> </ion-input>
-      <ion-label>quantity: </ion-label><ion-input [(ngModel)]="ingredient.quantity.quantities[0]" value="{{ingredient.quantity.quantities[0]}}"> </ion-input>
-      <ion-label>unit: </ion-label><ion-input [(ngModel)]="ingredient.quantity.units[0]"value="{{ingredient.quantity.units[0]}}"> </ion-input>
-      <ion-button (click)="deleteIngredient(ingredient.name)">
-        <ion-icon name="trash" ></ion-icon>
-      </ion-button>
+  <ion-grid>
+    <ion-row>
+      <ion-radio-group value="individual" (ionChange)="handleChange($event)">
+        <ion-item> <ion-label>Individual </ion-label> <ion-radio value="individual"></ion-radio>
+          <br />
+        </ion-item>
+        <ion-item> <ion-label>Group </ion-label><ion-radio value="group">Group</ion-radio><br />
+        </ion-item>
+      </ion-radio-group>
     </ion-row>
-    <br>
-  </ion-item>
+  </ion-grid>
+
+  <div *ngIf="individual">
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="addIngredient()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-item *ngFor="let ingredient of individualIngredients" button="false">
+      <ion-row>
+        <ion-label>Name: </ion-label> <ion-input [(ngModel)]="ingredient.name" value="{{ingredient.name}}"> </ion-input>
+        <ion-label>quantity: </ion-label><ion-input [(ngModel)]="ingredient.quantity.quantities[0]"
+          value="{{ingredient.quantity.quantities[0]}}"> </ion-input>
+        <ion-label>unit: </ion-label><ion-input [(ngModel)]="ingredient.quantity.units[0]"
+          value="{{ingredient.quantity.units[0]}}"> </ion-input>
+        <ion-button (click)="deleteIngredient(ingredient.name)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-row>
+      <br>
+    </ion-item>
+  </div>
+  <div *ngIf="!individual">
+
+    <ion-item>
+      <ion-textarea placeholder="Ingredients" [autoGrow]="true" value="" [(ngModel)]="groupIngredients">
+      </ion-textarea>
+    </ion-item>
+  </div>
+
 
 
 

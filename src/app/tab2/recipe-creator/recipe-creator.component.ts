@@ -14,9 +14,12 @@ import { Quantity } from 'src/app/classes/quantity';
 export class RecipeCreatorComponent implements OnInit {
 
   meal: Meal;
-  ingredients: Ingredient[] = []
+  groupIngredients: string = ""
+  individualIngredients: Ingredient[] = []
   name: string
   instructions: string
+  individual: boolean = true
+
   constructor(public alertController: AlertController,
     private modalController: ModalController, private alertService: AlertService,private firebaseService: FirebaseService) { }
 
@@ -47,9 +50,17 @@ export class RecipeCreatorComponent implements OnInit {
     }
     else {
       try {
-        await this.firebaseService.createRecipe(this.name, this.ingredients, this.instructions).then(() => {
-          this.alertService.showAlert('Success!', 'Changes to this recipe have been successfully submitted')
-        })
+        if(this.individual) {
+          await this.firebaseService.createRecipe(this.name, this.individualIngredients, this.instructions).then(() => {
+            this.alertService.showAlert('Success!', 'Changes to this recipe have been successfully submitted')
+          })
+        }
+        else {
+          await this.firebaseService.createRecipe(this.name, this.groupIngredients, this.instructions).then(() => {
+            this.alertService.showAlert('Success!', 'Changes to this recipe have been successfully submitted')
+          })
+        }
+        
       } catch (err) {
         console.log(err)
         this.alertService.showDBError(err)
@@ -66,13 +77,20 @@ export class RecipeCreatorComponent implements OnInit {
   }
 
   addIngredient() {
-    this.ingredients.push(new Ingredient("", new Quantity([], [])))
+    this.individualIngredients.push(new Ingredient("", new Quantity([], [])))
   }
 
   deleteIngredient(name: string) {
-    console.log(this.ingredients)
-    var index = this.ingredients.findIndex(item => item.name == name)
-    this.ingredients.splice(index, 1)
-    console.log(this.ingredients)
+    var index = this.individualIngredients.findIndex(item => item.name == name)
+    this.individualIngredients.splice(index, 1)
+  }
+
+  handleChange(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    if(target.value.toString() === "group") {
+      this.individual = false
+    } else {
+      this.individual = true;
+    }
   }
 }
