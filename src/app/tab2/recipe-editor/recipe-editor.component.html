@@ -40,12 +40,14 @@
     </ion-row>
   </div>
   <div *ngIf="!individual">
-    <ion-textarea [(ngModel)]="groupIngredients">
+    <ion-item>
+      <ion-textarea [(ngModel)]="groupIngredients" [autoGrow]="true">
 
-    </ion-textarea>
+      </ion-textarea>
+    </ion-item>
   </div>
 
-  
+
 
 
 
