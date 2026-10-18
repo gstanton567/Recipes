@@ -3,6 +3,9 @@ import { Entry } from './entry';
 import { FirebaseService } from '../services/firebase.service';
 
 import { AlertService } from '../services/alert.service';
+import { ModalController } from '@ionic/angular';
+import { EntryService } from '../services/entry/entry.service';
+import { AddMealEntryModalComponent } from '../components/addMealEntryModal/add-meal-entry-modal/add-meal-entry-modal.component';
 
 @Component({
   selector: 'app-tab3',
@@ -15,13 +18,14 @@ export class Tab3Page {
   tempEntries: Entry[] = []
   daysWithEntries: any[] = []
   name: string = ""
-  constructor(private firebaseService: FirebaseService, private alertService: AlertService) {
+  constructor(private firebaseService: FirebaseService, private modalController: ModalController, private entryService: EntryService, private alertService: AlertService) {
 
   }
 
   async ngOnInit() {
     try {
-      await this.getUserEntries()
+      await this.entryService.getUserEntries()
+      this.tempEntries = this.entryService.mealEntries
       let dataArr = await this.getDaysForMonthAndYear()
       this.daysWithEntries = this.createHighlightedDates(dataArr)
       this.observeDatetimeMonthChange()
@@ -46,56 +50,30 @@ export class Tab3Page {
     console.log(tempArr)
     return tempArr
   }
-  deleteEntry(entryIndex: number) {
-    this.tempEntries.splice(entryIndex, 1)
-    console.log("temp", this.tempEntries)
+  async deleteEntry(entryIndex: number) {
+    await this.entryService.deleteEntry(entryIndex)
+    this.tempEntries = this.entryService.mealEntries
+
   }
 
   async addEntry() {
-    this.tempEntries.push(new Entry("", "", new Date().toDateString(), ""))
-    await this.alertService.showAlert("Meal Entry Added", "You can now fill in information for this entry. Don't forget to save afterwards!")
-
+    let modal = await this.modalController.create({
+      component: AddMealEntryModalComponent,
+    })
+    await modal.present()
+    await modal.onDidDismiss()
+    this.tempEntries = this.entryService.mealEntries
   }
 
 
 
   async submitUserEdits() {
-    this.savedEntries = [];
-    for (let entry of this.tempEntries) {
-      this.savedEntries.push(entry)
-    }
-    console.log(this.savedEntries)
-    try {
-      await this.firebaseService.saveEntries(this.savedEntries)
-      await this.alertService.showAlert("Submission Saved", "Entries Saved Successfully")
-    }
-    catch (e) {
-      console.log(e);
-    }
-  }
-
-  async getUserEntries(dateSelectedEvent?: any) {
-    let dateString = new Date().toDateString()
-    if (dateSelectedEvent) {
-      dateString = new Date(dateSelectedEvent.detail.value).toDateString()
-
-    }
-    try {
-      let entryList = await this.firebaseService.getEntriesByDate(dateString)
-      if (entryList.length > 0) {
-        this.tempEntries = entryList[0].entries as Entry[]
-      }
-      else {
-        this.tempEntries = []
-      }
-    } catch (err) {
-      this.alertService.showDBError(err)
-    }
-
-
-
+    this.entryService.submitUserEdits()
+    this.tempEntries = this.entryService.mealEntries
 
   }
+
+
 
 
   observeDatetimeMonthChange() {
@@ -138,6 +116,12 @@ export class Tab3Page {
 
   async getDaysForMonthAndYear(dateString?: string) {
     return await this.firebaseService.getDaysForMonthAndYear(dateString)
+  }
+
+  async getUserEntries(dateSelectedEvent: any) {
+    console.log(dateSelectedEvent)
+    await this.entryService.getUserEntries(dateSelectedEvent)
+    this.tempEntries = this.entryService.mealEntries
   }
 
 

@@ -13,20 +13,20 @@
     <ion-card>
       <h1>
         Mealtime:
-        <ion-input [(ngModel)]="entry.mealtime"></ion-input>
+        <ion-input [(ngModel)]="entry.mealtime" autocomplete="true" spellcheck="true"></ion-input>
       </h1>
       <h1>
         Food Items:
       </h1>
       <ion-item>
-        <ion-input type="text" value="{{entry.foodItems}}" [(ngModel)]="entry.foodItems"></ion-input>
+        <ion-input type="text" value="{{entry.foodItems}}" [(ngModel)]="entry.foodItems" autocomplete="true" spellcheck="true"></ion-input>
       </ion-item>
 
       <h1>
         Notes:
       </h1>
       <ion-item>
-        <ion-textarea placeholder="Notes" [autoGrow]="true" [(ngModel)]="entry.notes">
+        <ion-textarea placeholder="Notes" [autoGrow]="true" [(ngModel)]="entry.notes" autocomplete="true" spellcheck="true">
         </ion-textarea>
       </ion-item>
       <ion-row>
@@ -36,6 +36,7 @@
       </ion-row>
     </ion-card>
   </div>
+
 
   
 

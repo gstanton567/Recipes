@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button slot="end" (click)="dismissModal()">X</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <h1>Select Mealtime:
+      <ion-select [(ngModel)]="tempEntry.mealtime" class="mealtime-select" label="Mealtime" labelPlacement="stacked"
+        fill="outline" placeholder="Select mealtime" interface="popover" toggleIcon="chevron-down"
+        expandedIcon="chevron-up">
+        <ion-select-option *ngFor="let option of mealtimeOptions" [value]="option">
+          {{ option }}
+        </ion-select-option>
+      </ion-select>
+    </h1>
+    <h1>
+      Food Items:
+    </h1>
+    <ion-item>
+      <ion-input type="text" value="{{tempEntry.foodItems}}" [(ngModel)]="tempEntry.foodItems" autocomplete="true"
+        spellcheck="true" placeholder="Food Items Here"></ion-input>
+    </ion-item>
+
+    <h1>
+      Notes:
+    </h1>
+    <ion-item>
+      <ion-textarea placeholder="Notes Here" [autoGrow]="true" [(ngModel)]="tempEntry.notes" autocomplete="true"
+        spellcheck="true">
+      </ion-textarea>
+    </ion-item>
+
+  </ion-card>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button slot="end" (click)="save()">
+      Save
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

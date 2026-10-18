@@ -1,0 +1,18 @@
+.mealtime-select {
+  --border-color: var(--ion-color-medium);
+  --border-width: 1px;
+  --border-radius: 8px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  min-height: 56px;
+
+  &.select-expanded,
+  &.has-focus {
+    --border-color: var(--ion-color-primary);
+  }
+
+  &::part(icon) {
+    opacity: 1;
+    color: var(--ion-color-primary);
+  }
+}
